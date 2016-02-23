@@ -101,4 +101,20 @@ Function New-ServiceNowIncident
     Invoke-TableApiRequest -credential $credential -uri $fullUri -httpMethod Post -requestHash $requestHash
 }
 
+Function Update-ServiceNowIncident
+{
+}
+
+Function Get-ServiceNowCI
+{
+}
+
+Function Get-ServiceNowUser
+{
+}
+
+Function Get-ServiceNowAssignmentGroup
+{
+}
+
 Export-ModuleMember *

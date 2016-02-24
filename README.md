@@ -15,7 +15,7 @@ Import-Module posh-servicenow
 
 ```
 $credential = Get-Credential
-Get-ServiceNowIncident -credential $credential -uri 'https://someinstance.servicenow.com' -incidentNumber 'abc123'
+Get-ServiceNowIncident -credential $credential -uri 'https://someinstance.servicenow.com/' -incidentNumber 'abc123'
 ```
 
 

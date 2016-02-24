@@ -3,6 +3,7 @@
 #>
 
 New-Variable -Name INCIDENT_URI -Value 'api/now/v1/table/incident' -Option Constant
+New-Variable -Name USER_URI -Value 'api/now/v1/table/sys_user' -Option Constant
 
 Function Invoke-TableApiRequest
 {
@@ -122,7 +123,7 @@ Function Get-ServiceNowCI
     )
 }
 
-Function Get-ServiceNowUser
+Function Get-ServiceNowAssignmentGroup
 {
     [CmdletBinding()]
     Param(
@@ -132,13 +133,30 @@ Function Get-ServiceNowUser
 
 }
 
-Function Get-ServiceNowAssignmentGroup
+Function Get-ServiceNowUser
 {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$True)][PSCredential]$credential,
-        [Parameter(Mandatory=$True)][string]$uri
+        [Parameter(Mandatory=$True)][string]$uri,
+        [Parameter(Mandatory=$True)][string]$email
     )
+    PROCESS
+    {
+        # build the requestUri
+        if(![String]::IsNullOrEmpty($email))
+        {
+            $requestUri = "$USER_URI`?&sysparm_exclude_reference_link=true&sysparm_display_value=true&sysparm_query=email=$($email.Trim())"
+        }
+        else
+        {
+            $requestUri = "$USER_URI`?&sysparm_exclude_reference_link=true&sysparm_display_value=true"
+        }
+        $fullUri = "$uri$requestUri"
+
+        # send the request
+        Invoke-TableApiRequest -credential $credential -uri $fullUri -httpMethod Get
+    }
 }
 
 Export-ModuleMember *

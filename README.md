@@ -3,9 +3,9 @@ posh-servicenow
 
 PowerShell wrapper for ServiceNow requests
 
-Requirements:
+###### Requirements:
 
-- ServiceNow Table REST API
+- ServiceNow Table API access
 
 ###### Usage:
 

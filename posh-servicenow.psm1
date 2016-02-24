@@ -107,25 +107,38 @@ Function New-ServiceNowIncident
 Function Update-ServiceNowIncident
 {
     [CmdletBinding()]
-    Param()
+    Param(
+        [Parameter(Mandatory=$True)][PSCredential]$credential,
+        [Parameter(Mandatory=$True)][string]$uri
+    )
 }
 
 Function Get-ServiceNowCI
 {
     [CmdletBinding()]
-    Param()
+    Param(
+        [Parameter(Mandatory=$True)][PSCredential]$credential,
+        [Parameter(Mandatory=$True)][string]$uri
+    )
 }
 
 Function Get-ServiceNowUser
 {
     [CmdletBinding()]
-    Param()
+    Param(
+        [Parameter(Mandatory=$True)][PSCredential]$credential,
+        [Parameter(Mandatory=$True)][string]$uri
+    )
+
 }
 
 Function Get-ServiceNowAssignmentGroup
 {
     [CmdletBinding()]
-    Param()
+    Param(
+        [Parameter(Mandatory=$True)][PSCredential]$credential,
+        [Parameter(Mandatory=$True)][string]$uri
+    )
 }
 
 Export-ModuleMember *

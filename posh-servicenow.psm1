@@ -5,7 +5,8 @@
 New-Variable -Name INCIDENT_URI -Value 'api/now/v1/table/incident' -Option Constant
 New-Variable -Name USER_URI -Value 'api/now/v1/table/sys_user' -Option Constant
 
-Function Invoke-TableApiRequest
+# Private function to handle all API communication, not exported
+Function invokeTableApiRequest
 {
     [CmdletBinding()]
     Param(
@@ -75,7 +76,7 @@ Function Get-ServiceNowIncident
         Write-Verbose "Full URI is $fullUri"
 
         # send the request
-        Invoke-TableApiRequest -credential $credential -uri $fullUri -httpMethod Get
+        invokeTableApiRequest -credential $credential -uri $fullUri -httpMethod Get
     }
 }
 
@@ -111,7 +112,7 @@ Function New-ServiceNowIncident
             }
 
         # Send the request
-        Invoke-TableApiRequest -credential $credential -uri $fullUri -httpMethod Post -requestHash $requestHash
+        invokeTableApiRequest -credential $credential -uri $fullUri -httpMethod Post -requestHash $requestHash
     }
 }
 
@@ -179,8 +180,8 @@ Function Get-ServiceNowUser
         Write-Verbose "Full URI is $fullUri"
 
         # send the request
-        Invoke-TableApiRequest -credential $credential -uri $fullUri -httpMethod Get
+        invokeTableApiRequest -credential $credential -uri $fullUri -httpMethod Get
     }
 }
 
-Export-ModuleMember *
+Export-ModuleMember *-*

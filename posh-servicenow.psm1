@@ -6,6 +6,7 @@ New-Variable -Name INCIDENT_URI -Value 'api/now/v1/table/incident' -Option Const
 
 Function Invoke-TableApiRequest
 {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$True)][PSCredential]$credential,
         [Parameter(Mandatory=$True)][string]$uri,
@@ -48,6 +49,7 @@ Function Invoke-TableApiRequest
 
 Function Get-ServiceNowIncident
 {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$True)][PSCredential]$credential,
         [Parameter(Mandatory=$True)][string]$uri,
@@ -72,6 +74,7 @@ Function Get-ServiceNowIncident
 
 Function New-ServiceNowIncident
 {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$True)][PSCredential]$credential,
         [Parameter(Mandatory=$True)][string]$uri,
@@ -103,18 +106,26 @@ Function New-ServiceNowIncident
 
 Function Update-ServiceNowIncident
 {
+    [CmdletBinding()]
+    Param()
 }
 
 Function Get-ServiceNowCI
 {
+    [CmdletBinding()]
+    Param()
 }
 
 Function Get-ServiceNowUser
 {
+    [CmdletBinding()]
+    Param()
 }
 
 Function Get-ServiceNowAssignmentGroup
 {
+    [CmdletBinding()]
+    Param()
 }
 
 Export-ModuleMember *

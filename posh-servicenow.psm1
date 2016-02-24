@@ -59,11 +59,11 @@ Function Get-ServiceNowIncident
     # build the requestUri
     if(![String]::IsNullOrEmpty($incidentNumber))
     {
-        $requestUri = "$INCIDENT_URI`?&sysparm_exclude_reference_link=true&sysparm_display_value=true&sysparm_fields=&sysparm_query=number=$($incidentNumber.Trim())"
+        $requestUri = "$INCIDENT_URI`?&sysparm_exclude_reference_link=true&sysparm_display_value=true&sysparm_query=number=$($incidentNumber.Trim())"
     }
     else
     {
-        $requestUri = "$INCIDENT_URI`?&sysparm_exclude_reference_link=true&sysparm_display_value=true&sysparm_fields="
+        $requestUri = "$INCIDENT_URI`?&sysparm_exclude_reference_link=true&sysparm_display_value=true"
     }
 
     $fullUri = "$uri$requestUri"

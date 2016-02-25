@@ -112,6 +112,9 @@ Function New-ServiceNowIncident
             'contact_type' = $contactType;
             }
 
+        # Dump the hash
+        Write-Verbose "Request body is $(ConvertTo-Json $requestHash)"
+
         # Send the request
         invokeTableApiRequest -credential $credential -uri $fullUri -httpMethod Post -requestHash $requestHash
     }

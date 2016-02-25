@@ -18,6 +18,7 @@ Function invokeTableApiRequest
 
     PROCESS
     {
+        Write-Verbose "Invoking Table API request with method $httpMethod"
         $headers = @{'Content-Type' = 'application/json';'Accept' = 'application/json'}
 
         # Use the .Net JavaScript serializer, the default PowerShell implementation limits return size

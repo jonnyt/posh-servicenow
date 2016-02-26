@@ -92,7 +92,8 @@ Function New-ServiceNowIncident
         [Parameter(Mandatory=$True)][string]$cmdbCI,
         [Parameter(Mandatory=$True)][string]$category,
         [Parameter(Mandatory=$True)][string]$comments,
-        [Parameter(Mandatory=$True)][string]$contactType
+        [Parameter(Mandatory=$True)][string]$contactType,
+        [Parameter(Mandatory=$False)][string]$userId
     )
 
     PROCESS
@@ -103,6 +104,7 @@ Function New-ServiceNowIncident
         Write-Verbose "Full URI is $fullUri"
 
         # Crease HashTable for request body (content of the incident)
+
         $requestHash = @{
             'assignment_group' = $assignmentGroup;
             'cmdb_ci' = $cmdbCI;
@@ -111,6 +113,10 @@ Function New-ServiceNowIncident
             'comments' = $comments;
             'contact_type' = $contactType;
             }
+        if($PSBoundParameters.ContainsKey('userId'))
+        {
+            $requestHash.Add('caller_id',$userId)
+        }
 
         # Dump the hash
         Write-Verbose "Request body is $(ConvertTo-Json $requestHash)"

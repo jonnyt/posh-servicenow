@@ -159,11 +159,67 @@ Function Update-ServiceNowIncident
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$True)][PSCredential]$credential,
-        [Parameter(Mandatory=$True)][string]$uri
+        [Parameter(Mandatory=$True)][string]$uri,
+        [Parameter(Mandatory=$True)][string]$incidentID,
+        [Parameter(Mandatory=$False)][string]$assignmentGroup,
+        [Parameter(Mandatory=$False)][string]$cmdbCI,
+        [Parameter(Mandatory=$False)][string]$category,
+        [Parameter(Mandatory=$False)][string]$comments,
+        [Parameter(Mandatory=$False)][string]$contactType,
+        [Parameter(Mandatory=$False)][string]$userId
     )
 
     PROCESS
     {
+        # Build the URI
+        $requestUri = "$INCIDENT_URI/$incidentID`?&sysparm_exclude_reference_link=true&sysparm_display_value=true"
+        $fullUri = "$uri$requestUri"
+        Write-Verbose "Full URI is $fullUri"
+
+        # Crease HashTable for request body (content of the incident)
+
+        $requestHash = @{}
+        if($PSBoundParameters.ContainsKey('userId'))
+        {
+            $requestHash.Add('caller_id',$userId)
+            Write-Verbose "Adding caller_id $userID to hash"
+        }
+
+        if($PSBoundParameters.ContainsKey('assignmentGroup'))
+        {
+            $requestHash.Add('assignment_group',$assignmentGroup)
+            Write-Verbose "Adding assignment_group $assignmentGroup to hash"
+        }
+        
+        if($PSBoundParameters.ContainsKey('cmdbCI'))
+        {
+            $requestHash.Add('cmdb_ci',$cmdbCI)
+            Write-Verbose "Adding cmdb_ci $cmdbCI to hash"
+        }
+        
+        if($PSBoundParameters.ContainsKey('category'))
+        {
+            $requestHash.Add('category',$category)
+            Write-Verbose "Adding category $category to hash"
+        }
+        
+        if($PSBoundParameters.ContainsKey('comments'))
+        {
+            $requestHash.Add('comments',$comments)
+            Write-Verbose "Adding comments $comments to hash"
+        }
+        
+        if($PSBoundParameters.ContainsKey('contactType'))
+        {
+            $requestHash.Add('contact_type',$contactType)
+            Write-Verbose "Adding contact_type $contactType to hash"
+        }
+
+        # Dump the hash
+        Write-Verbose "Request body is $(ConvertTo-Json $requestHash)"
+
+        # Send the request
+        invokeTableApiRequest -credential $credential -uri $fullUri -httpMethod Patch -requestHash $requestHash
     }
 }
 
@@ -177,6 +233,7 @@ Function Get-ServiceNowCI
 
     PROCESS
     {
+        throw "Not implemented"
     }
 }
 
@@ -190,6 +247,7 @@ Function Get-ServiceNowAssignmentGroup
 
     PROCESS
     {
+        throw "Not implemented"
     }
 
 }
